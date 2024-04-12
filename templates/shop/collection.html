@@ -1,0 +1,23 @@
+{% extends 'shop/main.html' %}
+
+{% block title %}
+Regsiter - Page
+{% endblock title %}
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h1>Collections</h1>
+
+            {% for item in catagory %}
+            <ul>
+                <li>{{item}}</li>
+            </ul>
+            {% endfor %}
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}
