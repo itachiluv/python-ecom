@@ -18,6 +18,29 @@
             {% endblock title %}
 
         </title>
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+        <style>
+            #pic-box{
+                position: relative;
+            }
+            #hot{
+                background-color: orangered;
+                color: white;
+                width:50px;
+                text-align: center;
+                font-weight: bold;
+                display: inline;
+                border-radius: 5px;
+                padding: 0;
+                position: absolute;
+                top: 1px;
+                
+              
+            }
+        </style>
+
         <link rel="stylesheet" href="{% static 'css/style.css'%}">
     </head>
     <body>
@@ -29,6 +52,8 @@
         {% block scripts %}
 
         {% endblock %}
+
+        {% include 'shop/footer.html' %}
 
         <script
             src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"

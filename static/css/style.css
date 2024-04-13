@@ -4,3 +4,24 @@
     height: 60vh;
     overflow: hidden;
 }
+
+.old_price {
+    font-weight: bold;
+    color: red;
+}
+
+.new_price {
+    font-weight: bold;
+    background-color: green;
+    color: white;
+    border-radius: 2px;
+}
+
+.pic-box {
+    position: relative;
+}
+
+.hot {
+    background-color: orangered;
+    color: white;
+}

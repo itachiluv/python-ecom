@@ -1,0 +1,31 @@
+{% extends 'shop/main.html' %}
+
+{% block title %}
+Regsiter - Page
+{% endblock title %}
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h4 class="mb-3">User Login</h4>
+            <hr style="border-color:bisque">
+            {% include 'shop/message.html' %}
+        </div>
+    </div>
+    <section class="py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-6">
+                    <form method="post">
+
+                    </form>
+                    <p class="my-2">Already user ? <a
+                            href>Login Now</a> </p>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+{% endblock %}
