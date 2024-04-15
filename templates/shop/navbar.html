@@ -15,26 +15,45 @@
                         href="{% url 'home'%}">
                         <i class="fa fa-home"></i> Home</a>
                 </li>
+
+                {% if request.user.is_authenticated %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'register'%}">
-                        <i class="fa fa-user"></i> Register</a>
+                    <a class="nav-link"
+                        href="#">
+                        <i class="fa fa-user"></i> {{request.user}}</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link"
-                        href="{% url 'collection'%}">
-                        <i class="fa fa-cubes"></i> Collections</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link"
-                        href="{% url 'collection'%}">
-                        <i class="fa fa-shopping-cart"></i> Cart</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link"
-                        href="{% url 'collection'%}">
+                        href="{% url 'logoutpage'%}">
                         <i class="fa fa-sign-out"></i> Log Out</a>
                 </li>
-            </ul>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link"
+                        href="{% url 'loginpage'%}">
+                        <i class="fa fa-sign-in"></i> LogIn</a>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'register'%}">
+                            <i class="fa fa-user"></i> Register</a>
+                    </li>
+                    {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link"
+                            href="{% url 'collection'%}">
+                            <i class="fa fa-cubes"></i> Collections</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link"
+                            href="{% url 'cart'%}">
+                            <i class="fa fa-shopping-cart"></i> Cart</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link"
+                            href="{% url 'fav_view_page'%}">
+                            <i class="fa fa-heart"></i> Favourites</a>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </div>
-</nav>
+    </nav>

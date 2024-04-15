@@ -19,7 +19,8 @@ Products - Page
                         <li class="breadcrumb-item">
                             <a
                                 href="{% url 'collection_view' product.catagory.name %}">
-                                Collection</a></li>
+                                Collection</a>
+                        </li>
                         <li class="breadcrumb-item active"
                             aria-current="page">{{product}}</li>
                     </ol>
@@ -29,8 +30,7 @@ Products - Page
                 {% if product.trending %}
                 <div class="hot" id="hot">Hot</div>
                 {% endif %}
-                <img src="{{ product.product_image.url }}"
-                    class="img-fluid"
+                <img src="{{ product.product_image.url }}" class="img-fluid"
                     alt="Product Image">
             </div>
             <div class="col-8 my-3">
@@ -38,14 +38,32 @@ Products - Page
                 <p>{{product}}</p>
                 <p>{{product.description}}</p>
                 <h6 class="my-2 text-danger">Current Price: $
-                    <s>{{product.original_price}}</s> </h6>
+                    <s>{{product.original_price}}</s>
+                </h6>
                 <h5 class="my-2 text-primary">Offer Price: $
                     {{product.selling_price}}
                 </h5>
                 <div class="my-3">
 
                     {% if product.qty > 0 %}
-                    <button class="btn btn-primary"><i
+                    <input type="hidden" value="{{product.id}}" id="pid">
+                    {% csrf_token %}
+                    <p>
+                        <div class="input-group" style="width:150px">
+                            <button
+                                class="input-group-text bg-success text-light"
+                                id="btnMinus"><i
+                                    class="fa fa-minus"></i></button>
+                            <input type="text" name="qty" id="txtQty"
+                                value="1"
+                                class="form-control text-center">
+                            <button
+                                class="input-group-text bg-success text-light"
+                                id="btnPlus"><i
+                                    class="fa fa-plus"></i></button>
+                        </div>
+                    </p>
+                    <button class="btn btn-primary" id="btnCart"><i
                             class="fa fa-shopping-cart"></i> Add
                         Cart</button>
                     {% else %}
@@ -54,7 +72,8 @@ Products - Page
                     </button>
                     {% endif %}
 
-                    <button class="btn btn-danger"><i class="fa fa-heart"></i>
+                    <button class="btn btn-danger" id="btnFav"><i
+                            class="fa fa-heart"></i>
                     </button>
                 </div>
             </div>
@@ -63,5 +82,91 @@ Products - Page
     </div>
 
 </section>
+<script>
+    document.addEventListener('DOMContentLoaded', function (event) {
+        const btnMinus = document.getElementById('btnMinus');
+        const btnPlus = document.getElementById('btnPlus');
+        const txtQty = document.getElementById('txtQty');
+        const pid = document.getElementById('pid');
+        console.log(pid)
+        const btnCart = document.getElementById('btnCart')
+        const btnFav = document.getElementById('btnFav')
 
+        btnPlus.addEventListener('click', function () {
+            let qty = parseInt(txtQty.value,10)
+            qty = isNaN(qty)?0:qty
+
+            if(qty<10){
+                qty++
+                txtQty.value = qty
+            }
+        })
+
+        btnMinus.addEventListener('click', function () {
+            let qty = parseInt(txtQty.value,10)
+            qty = isNaN(qty)?0:qty
+
+            if(qty>1){
+                qty--   
+                txtQty.value = qty
+            }
+        })
+
+        btnCart.addEventListener('click',function(){
+            let qty = parseInt(txtQty.value,10)
+            qty = isNaN(qty)?0:qty
+
+            if(qty<=10){
+                let postobj = {
+                    'product_qty' : qty,
+                    'pid' :pid.value,
+                }
+                console.log(postobj)
+                fetch('/addcart/',{
+                    method:'POST',
+                    credentials: "same-origin",
+                    headers:{
+                        'Accept':'application/json',
+                        'X-Requested-With':'XMLHttpRequest',
+                        'X-CSRFToken':'{{csrf_token}}'
+                    },
+                    body:JSON.stringify(postobj)
+                }).then(response =>{
+                    return response.json();
+                }).then(data=>{
+                    //console.log("data--->",data)
+                    alert(data['status'])
+                });
+            }else{
+                alert('Please Enter the Quantity')
+            }
+        })
+
+
+
+        btnFav.addEventListener('click',function(){
+            let postobj = {
+                    'pid' :pid.value,
+                }
+                console.log(postobj)
+                fetch('/fav/',{
+                    method:'POST',
+                    credentials: "same-origin",
+                    headers:{
+                        'Accept':'application/json',
+                        'X-Requested-With':'XMLHttpRequest',
+                        'X-CSRFToken':'{{csrf_token}}'
+                    },
+                    body:JSON.stringify(postobj)
+                }).then(response =>{
+                    return response.json();
+                }).then(data=>{
+                    //console.log("data--->",data)
+                    alert(data['status'])
+                });
+            
+        })
+
+    })
+</script>
 {% endblock content %}

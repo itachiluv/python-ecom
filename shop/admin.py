@@ -7,3 +7,4 @@ class CatagoryAdmin(admin.ModelAdmin):
 
 admin.site.register(Catagory,CatagoryAdmin)
 admin.site.register(Product)
+admin.site.register(cart)

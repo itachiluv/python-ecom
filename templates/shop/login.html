@@ -18,7 +18,21 @@ Regsiter - Page
             <div class="row">
                 <div class="col-6">
                     <form method="post">
-
+                        {% csrf_token %}
+                        <div class="mb-4">
+                            <label for class="form-label">User Name</label>
+                            <input type="text" name="username" id="username"
+                                class="form-control"
+                                placeholder="Enter User Name">
+                        </div>
+                        <div class="mb-4">
+                            <label for class="form-label">Password</label>
+                            <input type="password" name="password" id="password"
+                                class="form-control"
+                                placeholder="Enter Password">
+                        </div>
+                        <button type="submit"
+                            class="btn btn-primary">Login</button>
                     </form>
                     <p class="my-2">Already user ? <a
                             href>Login Now</a> </p>
